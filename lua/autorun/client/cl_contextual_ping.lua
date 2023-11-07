@@ -196,8 +196,6 @@ function PingAtEntity(pingEnt, pingPly, isTeam)
 
                 PingAtLocation(pingLocScr, pingPly, isTeam)
             end
-        else
-            hook.Remove("PreDrawHalos", "ContextualPingDrawHalo"  .. fif(isTeam == true, "Team", "") .. userId)
         end
     end
 end
@@ -217,7 +215,6 @@ function PingAllLocation()
         ping_entities_detective[userId] = nil
 
         hook.Remove("HUDPaint", "ContextualPingIncoming" .. userId)
-        hook.Remove("PreDrawHalos", "ContextualPingDrawHalo"  .. userId)
 
         hook.Add("HUDPaint", "ContextualPingIncoming" .. userId, function()
             PingAtLocation(pingLoc, pingPly, false)
@@ -255,7 +252,6 @@ function PingAllEntity()
         end
 
         hook.Remove("HUDPaint", "ContextualPingIncoming" .. userId)
-        hook.Remove("PreDrawHalos", "ContextualPingDrawHalo"  .. userId)
 
         if ping_entities_all[userId] != LocalPlayer() then
             hook.Add("HUDPaint", "ContextualPingIncoming" .. userId, function()
@@ -266,14 +262,6 @@ function PingAllEntity()
                 end
             end)
         end
-
-        hook.Add("PreDrawHalos", "ContextualPingDrawHalo"  .. userId, function()
-            if IsValid(ping_entities_detective[userId]) and isTTT then
-                halo.Add(ping_entities_detective, PING_DETECTIVE, PING_BLUR, PING_BLUR, PING_PASSES)
-            elseif IsValid(ping_entities_all[userId]) then
-                halo.Add(ping_entities_all, PING_INNOCENT, PING_BLUR, PING_BLUR, PING_PASSES)
-            end
-        end)
 
         if pingPly == LocalPlayer() then
             surface.PlaySound("garrysmod/ui_click.wav" )
@@ -312,7 +300,6 @@ function PingTeamLocation()
                 ping_entities_traitor[userId] = nil
             
                 hook.Remove("HUDPaint", "ContextualPingIncomingTeam" .. userId)
-                hook.Remove("PreDrawHalos", "ContextualPingDrawHaloTeam"  .. userId)
             
                 hook.Add("HUDPaint", "ContextualPingIncomingTeam" .. userId, function()
                     PingAtLocation(pingLoc, pingPly, true)
@@ -351,7 +338,6 @@ function PingTeamEntity()
                 ping_entities_traitor[userId] = pingEnt
 
                 hook.Remove("HUDPaint", "ContextualPingIncomingTeam" .. userId)
-                hook.Remove("PreDrawHalos", "ContextualPingDrawHaloTeam"  .. userId)
 
                 if ping_entities_traitor[userId] != LocalPlayer() then
                     hook.Add("HUDPaint", "ContextualPingIncomingTeam" .. userId, function()
@@ -360,12 +346,6 @@ function PingTeamEntity()
                         end
                     end)
                 end
-
-                hook.Add("PreDrawHalos", "ContextualPingDrawHaloTeam"  .. userId, function()
-                    if IsValid(ping_entities_traitor[userId]) then
-                        halo.Add(ping_entities_traitor, PING_TRAITOR, PING_BLUR, PING_BLUR, PING_PASSES)
-                    end
-                end)
 
                 if pingPly == LocalPlayer() then
                     surface.PlaySound("garrysmod/ui_click.wav" )
