@@ -49,8 +49,7 @@ end
 -----------------------------------------------------------]]
 net.Receive("contextual_ping_all_location_sv", function(len, ply)
     local vec = net.ReadVector()
-
-    ply:Say("Pinged at a Location")
+        
     net.Start("contextual_ping_all_location_cl")
         net.WriteVector(vec)
         net.WriteEntity(ply)
@@ -64,8 +63,6 @@ end)
 net.Receive("contextual_ping_all_entity_sv", function(len, ply)
     local ent = net.ReadEntity()
 
-    local sayTxt = "Pinged at " .. GetEntityDescription(ent)
-    ply:Say(sayTxt)
     net.Start("contextual_ping_all_entity_cl")
         net.WriteEntity(ent)
         net.WriteEntity(ply)
@@ -88,13 +85,11 @@ net.Receive("contextual_ping_team_location_sv", function(len, ply)
             end
         end
 
-        ply:Say("Pinged at a Location", true)
         net.Start("contextual_ping_team_location_cl")
             net.WriteVector(vec)
             net.WriteEntity(ply)
         net.Send(traitors)
     else
-        ply:Say("Pinged at a Location")
         net.Start("contextual_ping_all_location_cl")
             net.WriteVector(vec)
             net.WriteEntity(ply)
@@ -118,16 +113,11 @@ net.Receive("contextual_ping_team_entity_sv", function(len, ply)
             end
         end
 
-        local sayTxt = "Pinged at " .. GetEntityDescription(ent)
-        ply:Say(sayTxt, true)
-
         net.Start("contextual_ping_team_entity_cl")
             net.WriteEntity(ent)
             net.WriteEntity(ply)
         net.Send(traitors)
     else
-        local sayTxt = "Pinged at " .. GetEntityDescription(ent)
-        ply:Say(sayTxt)
 
         net.Start("contextual_ping_all_entity_cl")
             net.WriteEntity(ent)
