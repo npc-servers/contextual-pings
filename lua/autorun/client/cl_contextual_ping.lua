@@ -179,7 +179,7 @@ function PingAtEntity(pingEnt, pingPly, isTeam)
 
                 if !pingEnt:IsWeapon() then
                     local head = pingEnt:LookupBone("ValveBiped.Bip01_Head1")
-                    if(head) then
+                    if head:IsValid() then
                         local headPos = pingEnt:GetBonePosition(head)
                         if(headPos == pingLocScr) then
                             headPos = pingEnt:GetBoneMatrix(head):GetTranslation()
