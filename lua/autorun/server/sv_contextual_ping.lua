@@ -16,7 +16,7 @@ util.AddNetworkString("contextual_ping_entity_ragdoll_cl")
 --[[---------------------------------------------------------
     Utility function to get a description of the item pinged at
 -----------------------------------------------------------]]
-function GetEntityDescription(ent)
+local function GetEntityDescription(ent)
     local description
 
     if ent:IsPlayer() then
