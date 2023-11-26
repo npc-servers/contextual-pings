@@ -169,7 +169,10 @@ local function PingAtEntity(pingEnt, pingPly, isTeam)
                     if(head) then
                         local headPos = pingEnt:GetBonePosition(head)
                         if(headPos == pingLocScr) then
-                            headPos = pingEnt:GetBoneMatrix(head):GetTranslation()
+                            local matrix = pingEnt:GetBoneMatrix(head)
+                            if matrix then
+                                headPos = pingEnt:GetTranslation()
+                            end
                         end
                         pingLocScr = headPos
                     else
