@@ -14,36 +14,6 @@ util.AddNetworkString("contextual_ping_team_entity_cl")
 util.AddNetworkString("contextual_ping_entity_ragdoll_cl")
 
 --[[---------------------------------------------------------
-    Utility function to get a description of the item pinged at
------------------------------------------------------------]]
-local function GetEntityDescription(ent)
-    local description
-
-    if ent:IsPlayer() then
-        description = ent:Nick()
-    elseif ent:IsWeapon() then
-        description = "a Weapon"
-    elseif ent:IsRagdoll() then
-        if engine.ActiveGamemode() == "terrortown" then
-            if CORPSE.GetFound(ent, false) then
-                description = "the body of " .. CORPSE.GetPlayerNick(ent, "a Terrorist")
-            else
-                description = "an unidentified Body"
-            end
-        else
-            description = "a Ragdoll"
-        end
-    elseif ent:IsNPC() then
-        description = "an NPC"
-    elseif ent:IsNextBot() then
-        description = ent:GetName()
-    else
-        description = "Something"
-    end
-    return description
-end
-
---[[---------------------------------------------------------
     net.Receive function to send a location ping to
     all other players
 -----------------------------------------------------------]]

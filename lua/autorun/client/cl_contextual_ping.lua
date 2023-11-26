@@ -10,9 +10,6 @@ local PING_INNOCENT = Color(26, 255, 26, 255)
 local PING_TRAITOR = Color(255, 26, 26, 255)
 local PING_DETECTIVE = Color(26, 26, 255, 255)
 
-local PING_BLUR = 2
-local PING_PASSES = 5
-
 local PING_ALL = KEY_T
 local PING_TEAM = KEY_B
 
