@@ -49,7 +49,7 @@ end
 -----------------------------------------------------------]]
 net.Receive("contextual_ping_all_location_sv", function(len, ply)
     local vec = net.ReadVector()
-        
+
     net.Start("contextual_ping_all_location_cl")
         net.WriteVector(vec)
         net.WriteEntity(ply)

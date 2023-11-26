@@ -100,7 +100,7 @@ end)
     Draws the ping icon on the screen
 -----------------------------------------------------------]]
 local function DrawPing(pingLocaton, pingPly, isTeam)
-    local offScreen = { 
+    local offScreen = {
         above = pingLocaton.y < 0,
         below = pingLocaton.y > ScrH(),
         right = pingLocaton.x > ScrW(),
@@ -131,7 +131,7 @@ local function DrawPing(pingLocaton, pingPly, isTeam)
         local ts = surface.GetTextSize(plyNick)
 
         surface.SetTextColor(pingColour)
-        surface.SetTextPos(pingLocaton.x - (ts / 2), pingLocaton.y - (wh * 1.3)) 
+        surface.SetTextPos(pingLocaton.x - (ts / 2), pingLocaton.y - (wh * 1.3))
         surface.DrawText(plyNick)
     else
         surface.DrawTexturedRect(pingLocaton.x - (offScreen.right and 64 or 0), pingLocaton.y - (offScreen.below and 64 or 0), 64, 64)
@@ -162,7 +162,7 @@ local function PingAtEntity(pingEnt, pingPly, isTeam)
     if IsValid(pingPly) then
         local userId = pingPly:UserID()
         local pingLocScr
-        
+
         if IsValid(pingEnt) then
             if pingEnt != LocalPlayer() then
                 pingLocScr = pingEnt:GetPos()
@@ -286,15 +286,15 @@ local function PingTeamLocation()
             else
                 local userId = pingPly:UserID()
                 local pingUserNick = pingPly:Nick()
-            
+
                 ping_entities_traitor[userId] = nil
-            
+
                 hook.Remove("HUDPaint", "ContextualPingIncomingTeam" .. userId)
-            
+
                 hook.Add("HUDPaint", "ContextualPingIncomingTeam" .. userId, function()
                     PingAtLocation(pingLoc, pingPly, true)
                 end)
-            
+
                 if pingPly == LocalPlayer() then
                     surface.PlaySound("garrysmod/ui_click.wav" )
                 end
