@@ -21,7 +21,7 @@ local ping_on_cooldown = false
 --[[---------------------------------------------------------
     Ternary statement - fif
 -----------------------------------------------------------]]
-function fif(condition, if_true, if_false)
+local function fif(condition, if_true, if_false)
     if condition then return if_true else return if_false end
 end
 
@@ -31,7 +31,7 @@ local isTTT = fif(engine.ActiveGamemode() == "terrortown", true, false)
     Sends what the player is looking at to the server
     - Either a location or an entity
 -----------------------------------------------------------]]
-function PingLocation(isTeam)
+local function PingLocation(isTeam)
     if ping_on_cooldown == true then return end
 
     local ply = LocalPlayer()
@@ -78,7 +78,7 @@ end
 --[[---------------------------------------------------------
     Sends what the player is looking at but only to their team
 -----------------------------------------------------------]]
-function PingTeam()
+local function PingTeam()
     PingLocation(true)
 end
 
@@ -99,7 +99,7 @@ end)
 --[[---------------------------------------------------------
     Draws the ping icon on the screen
 -----------------------------------------------------------]]
-function DrawPing(pingLocaton, pingPly, isTeam)
+local function DrawPing(pingLocaton, pingPly, isTeam)
     local offScreen = { 
         above = pingLocaton.y < 0,
         below = pingLocaton.y > ScrH(),
@@ -142,7 +142,7 @@ end
     Used to ping at a specific location when the player who
     sent the ping is not looking at an entity
 -----------------------------------------------------------]]
-function PingAtLocation(pingLoc, pingPly, isTeam)
+local function PingAtLocation(pingLoc, pingPly, isTeam)
     if IsValid(pingPly) then
         local pingLocScr = pingLoc
 
@@ -158,7 +158,7 @@ end
     Used to ping at a specific location when the player who
     sent the ping is looking at an entity
 -----------------------------------------------------------]]
-function PingAtEntity(pingEnt, pingPly, isTeam)
+local function PingAtEntity(pingEnt, pingPly, isTeam)
     if IsValid(pingPly) then
         local userId = pingPly:UserID()
         local pingLocScr
@@ -193,7 +193,7 @@ end
 --[[---------------------------------------------------------
     net.Receive function when a location ping is sent to all players
 -----------------------------------------------------------]]
-function PingAllLocation()
+local function PingAllLocation()
     local pingLoc = net.ReadVector()
     local pingPly = net.ReadEntity()
 
@@ -223,7 +223,7 @@ end
 --[[---------------------------------------------------------
     net.Receive function when an entity ping is sent to all players
 -----------------------------------------------------------]]
-function PingAllEntity()
+local function PingAllEntity()
     local pingEnt = net.ReadEntity()
     local pingPly = net.ReadEntity()
 
@@ -273,7 +273,7 @@ net.Receive("contextual_ping_all_entity_cl", PingAllEntity)
     net.Receive function when a location ping is sent to the
     players team
 -----------------------------------------------------------]]
-function PingTeamLocation()
+local function PingTeamLocation()
     local pingLoc = net.ReadVector()
     local pingPly = net.ReadEntity()
 
@@ -311,7 +311,7 @@ end
     net.Receive function when an entity ping is sent to the
     players team
 -----------------------------------------------------------]]
-function PingTeamEntity()
+local function PingTeamEntity()
     local pingEnt = net.ReadEntity()
     local pingPly = net.ReadEntity()
 
@@ -358,7 +358,7 @@ net.Receive("contextual_ping_team_entity_cl", PingTeamEntity)
     When an entity is killed (i.e. player or npc) then
     draw the ping / halo on their ragdoll entity instead
 -----------------------------------------------------------]]
-function ReplaceEntityWithRagdoll(ent, ragdoll)
+local function ReplaceEntityWithRagdoll(ent, ragdoll)
     -- Check if the entity killed was pinged to all players
     for k, v in pairs(ping_entities_all) do
         if v == ent then
