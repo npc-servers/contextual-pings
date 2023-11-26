@@ -88,23 +88,13 @@ end
 -----------------------------------------------------------]]
 concommand.Add("contextual_ping_all", PingLocation)
 concommand.Add("contextual_ping_team", PingTeam)
-if game.SinglePlayer() then
-    if !input.LookupBinding("contextual_ping_all", true) then
-        bind.Add(PING_ALL, "ContextualPingAll", PingLocation)
+hook.Add("PlayerButtonDown", "ContextualPingButtonDown", function(ply, button)
+    if button == PING_ALL and !input.LookupBinding("contextual_ping_all", true) then
+        PingLocation()
+    elseif button == PING_TEAM and !input.LookupBinding("contextual_ping_team", true) then
+        PingTeam()
     end
-
-    if !input.LookupBinding("contextual_ping_team", true) then
-        bind.Add(PING_TEAM, "ContextualPingTeam", PingTeam)
-    end
-else
-    hook.Add("PlayerButtonDown", "ContextualPingButtonDown", function(ply, button)
-        if button == PING_ALL and !input.LookupBinding("contextual_ping_all", true) then
-            PingLocation()
-        elseif button == PING_TEAM and !input.LookupBinding("contextual_ping_team", true) then
-            PingTeam()
-        end
-    end)
-end
+end)
 
 --[[---------------------------------------------------------
     Draws the ping icon on the screen
