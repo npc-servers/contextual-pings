@@ -36,8 +36,6 @@ local function PingLocation(isTeam)
     local pingLoc = eye.HitPos
     local pingEnt = eye.Entity
 
-    if !ply:Alive() then return end
-
     if isTTT then
         if ply:IsSpec() then return end
     end
